@@ -1,0 +1,542 @@
+{
+	"info": {
+		"_postman_id": "dcfc4911-108d-46b6-b4e8-bce1fc2dfb7e",
+		"name": "RFIT 5 End to end",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2024820"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set('Token',jsonData.token);\r",
+							"   "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{Username}}",
+							"type": "default"
+						},
+						{
+							"key": "orgName",
+							"value": "{{Org}}",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/users",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create workflow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202,200]);\r",
+							"});\r",
+							"pm.test(\"create workflow?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    console.log(\"value\",jsonData.value)\r",
+							"    console.log(\"value\",jsonData.success)\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"peers\": [\"peer0.{{Org}}.chainvine.com\",\"peer1.{{Org}}.chainvine.com\"],\r\n    \"fcn\": \"createWorkflow\",\r\n    \"args\": [{{Workflowid}}, {{Username}}, {{workflowdata}}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Asset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202,200]);\r",
+							"});\r",
+							"pm.test(\"Update Asset?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    console.log(\"value\",jsonData.value)\r",
+							"    console.log(\"value\",jsonData.success)\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"peers\": [\"peer0.{{Org}}.chainvine.com\",\"peer1.{{Org}}.chainvine.com\"],\r\n    \"fcn\": \"updateAsset\",\r\n    \"args\": [{{Workflowid}}, \"testuser\", \"assetid1\", \"cost\", \"id\", \"crate\", \"pallet\", \"container\", \"gtin\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{Username1}}",
+							"type": "default"
+						},
+						{
+							"key": "orgName",
+							"value": "{{Org}}",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/users",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Custodian",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202,200]);\r",
+							"});\r",
+							"pm.test(\"Transfer Custodianship?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    console.log(\"value\",jsonData.value)\r",
+							"    console.log(\"value\",jsonData.success)\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"peers\": [\"peer0.{{Org}}.chainvine.com\",\"peer1.{{Org}}.chainvine.com\"],\r\n    \"fcn\": \"transferAsset\",\r\n    \"args\": [{{Workflowid}}, {{Username}}, \"assetid1\", \"1\", {{Username1}}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202,200]);\r",
+							"});\r",
+							"pm.test(\"Transfer Ownership?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    console.log(\"value\",jsonData.value)\r",
+							"    console.log(\"value\",jsonData.success)\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"peers\": [\"peer0.{{Org}}.chainvine.com\",\"peer1.{{Org}}.chainvine.com\"],\r\n    \"fcn\": \"transferAsset\",\r\n    \"args\": [{{Workflowid}}, {{Username}}, \"assetid1\", \"0\", {{Username1}}]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "finalize all assets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202,200]);\r",
+							"});\r",
+							"pm.test(\"Finalize all assets?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    console.log(\"value\",jsonData.value)\r",
+							"    console.log(\"value\",jsonData.success)\r",
+							"    pm.expect(jsonData.success).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"peers\": [\"peer0.{{Org}}.chainvine.com\",\"peer1.{{Org}}.chainvine.com\"],\r\n    \"fcn\": \"finalizeAllAssets\",\r\n    \"args\": [{{Workflowid}}, {{Username}}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Record exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.exists).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDE0NzkyMTgsInVzZXJuYW1lIjoiXCJ0ZXN0dXNlclwiIiwib3JnTmFtZSI6Iml0cCIsImlhdCI6MTY0MTQ2NDgxOH0.5tih7MgdbaytFgplNNfhCfWw2EFtU5PVzQvlT70roJs"
+					}
+				],
+				"url": {
+					"raw": "{{Protocol}}://{{Host}}:{{Port}}/channels/datachannel/chaincodes/{{Chaincode}}?peer=peer0.{{Org}}.chainvine.com&fcn=exists&args=[\"111\"]",
+					"protocol": "{{Protocol}}",
+					"host": [
+						"{{Host}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"channels",
+						"datachannel",
+						"chaincodes",
+						"{{Chaincode}}"
+					],
+					"query": [
+						{
+							"key": "peer",
+							"value": "peer0.{{Org}}.chainvine.com"
+						},
+						{
+							"key": "fcn",
+							"value": "exists"
+						},
+						{
+							"key": "args",
+							"value": "[\"111\"]"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Protocol",
+			"value": "https",
+			"type": "string"
+		},
+		{
+			"key": "Host",
+			"value": "51.89.138.18",
+			"type": "string"
+		},
+		{
+			"key": "Port",
+			"value": "4000",
+			"type": "string"
+		},
+		{
+			"key": "Token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Chaincode",
+			"value": "workflowitpv040122",
+			"type": "string"
+		},
+		{
+			"key": "Org",
+			"value": "itp",
+			"type": "string"
+		},
+		{
+			"key": "Username",
+			"value": "\"testuser\"",
+			"type": "string"
+		},
+		{
+			"key": "Workflowid",
+			"value": "\"5012\"",
+			"type": "string"
+		},
+		{
+			"key": "workflowdata",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Username1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Username2",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
